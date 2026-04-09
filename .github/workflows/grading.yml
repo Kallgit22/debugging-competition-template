@@ -8,7 +8,7 @@ jobs:
   grade:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
+      - name: Checkout Student Code
         uses: actions/checkout@v3
 
       - name: Setup Python
@@ -16,5 +16,15 @@ jobs:
         with:
           python-version: '3.10'
 
+      - name: Fetch Secure Answers
+        # This line uses your hidden secret to securely download the private answers
+        run: |
+          git clone https://${{ secrets.SECRET_GRADER_TOKEN }}@github.com/YOUR_GITHUB_USERNAME/secure-grader.git secret_files
+
       - name: Run Autograder
-        run: python3 .hidden/grade.py
+        run: python3 secret_files/grade.py
+
+      - name: Clean Up Vault
+        # This ensures the answers are wiped from the server after grading
+        if: always()
+        run: rm -rf secret_files
