@@ -19,7 +19,7 @@ jobs:
       - name: Fetch Secure Answers
         # This line uses your hidden secret to securely download the private answers
         run: |
-          git clone https://${{ secrets.SECRET_GRADER_TOKEN }}@github.com/YOUR_GITHUB_USERNAME/secure-grader.git secret_files
+          git clone https://${{ secrets.SECRET_GRADER_TOKEN }}@github.com/Kallgit22/secure-grader.git secret_files
 
       - name: Run Autograder
         run: python3 secret_files/grade.py
